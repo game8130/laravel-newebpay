@@ -31,7 +31,7 @@ class NewebPayPeriodAlterAmtTest extends TestCase
         $requestData = $newebpay->getRequestData();
 
         $this->assertEquals('TestMerchantID1234', $requestData['MerchantID_']);
-        $this->assertEquals('0648e6bb8bcda9be87c79c6d1460915ef83e2401fd26af418303a3d9d932f4a55b44d0a1ae9c5d487b0b9398bb262ffc4fcf63fb1572c55cc70e5a0a04b08497', $requestData['PostData_']);
+        $this->assertEquals('e88e33cc07d106bcba1c1bd02d5d421f9c4dc994fdb1a0acb2c79d95ee134b224e2d30fda9b31515d49d15c31b82cc1060a7433f19224003d9f271bf9c56f9d2', $requestData['PostData_']);
     }
 
     public function testNewebPayPeriodAlterAmtSubmit()
