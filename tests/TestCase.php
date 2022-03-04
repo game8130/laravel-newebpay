@@ -59,9 +59,9 @@ class TestCase extends BaseTestCase
     {
         $this->mockGetConfig($config, 'Debug', true);
         $this->mockGetConfig($config, 'MerchantID', 'TestMerchantID1234');
-        $this->mockGetConfig($config, 'HashKey', 'TestHashKey123456789');
-        $this->mockGetConfig($config, 'HashIV', '17ef14e533ed1c18'); // Generate with `bin2hex(openssl_random_pseudo_bytes(8));`
-        $this->mockGetConfig($config, 'Version', '1.5');
+        $this->mockGetConfig($config, 'HashKey', '2PoVzoJZJ4Enxa31t4QfFqKpfkq2hAzw');
+        $this->mockGetConfig($config, 'HashIV', 'CH9ycQm81rVOWN4P'); // Generate with `bin2hex(openssl_random_pseudo_bytes(8));`
+        $this->mockGetConfig($config, 'Version', '2.0');
         $this->mockGetConfig($config, 'RespondType', 'JSON');
         $this->mockGetConfig($config, 'LangType', 'zh-tw');
         $this->mockGetConfig($config, 'TradeLimit', 0);
@@ -95,5 +95,13 @@ class TestCase extends BaseTestCase
         ]);
         $this->mockGetConfig($config, 'CVSCOM', null);
         $this->mockGetConfig($config, 'LgsType', null);
+        $this->mockGetConfig($config, 'PeriodStartType', '2');
+        $this->mockGetConfig($config, 'PeriodTimes', '99');
+        $this->mockGetConfig($config, 'PeriodFirstdate', '0');
+        $this->mockGetConfig($config, 'PeriodMemo', null);
+        $this->mockGetConfig($config, 'PaymentInfo', 'Y');
+        $this->mockGetConfig($config, 'OrderInfo', 'Y');
+        $this->mockGetConfig($config, 'BackURL', null);
+
     }
 }

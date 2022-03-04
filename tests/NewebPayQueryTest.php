@@ -33,9 +33,9 @@ class NewebPayQueryTest extends TestCase
             ->getRequestData();
 
         $this->assertEquals('TestMerchantID1234', $requestData['MerchantID']);
-        $this->assertEquals('1.5', $requestData['Version']);
+        $this->assertEquals('2.0', $requestData['Version']);
         $this->assertEquals('JSON', $requestData['RespondType']);
-        $this->assertEquals('A314C865681049301D80A33318E5043B51425EAC58736E9ACF4FAC5854ABD59F', $requestData['CheckValue']);
+        $this->assertEquals('B6649FF25F04805EBD9E5CE13DC99DB5D16D5AA5FFC669A77D9A38352FF75E61', $requestData['CheckValue']);
         $this->assertEquals(1577836800, $requestData['TimeStamp']);
         $this->assertEquals('TestNo123456', $requestData['MerchantOrderNo']);
         $this->assertEquals(100, $requestData['Amt']);

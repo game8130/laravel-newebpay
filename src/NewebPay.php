@@ -139,6 +139,109 @@ class NewebPay extends BaseNewebPay
     }
 
     /**
+     * 定期定額扣款
+     *
+     * @param  string  $no  訂單編號
+     * @param  int  $amt  訂單金額
+     * @param  string  $desc  商品描述
+     * @param  string  $email  連絡信箱
+     * @param  string  $type  週期類別
+     *                        D = 固定天期制
+     *                        W = 每週
+     *                        M = 每月
+     *                        Y = 每年
+     * @param  int  $point  交易週期授權時間
+     *                        D = 2~999
+     *                        W = 1~7
+     *                        M = 01~31
+     *                        Y = 0315(MMDD)
+     * @return \Ycs77\NewebPay\NewebPayPeriod
+     */
+    public function period($no, $amt, $desc, $email, $type, $point)
+    {
+        $newebPay = new NewebPayPeriod($this->config);
+        $newebPay->setPeriod($no, $amt, $desc, $email, $type, $point);
+
+        return $newebPay;
+    }
+
+    /**
+     * 定期定額-暫停委託
+     *
+     * @param  string  $no 商店訂單編號
+     * @param  string  $periodNo 委託單號
+     * @return \Ycs77\NewebPay\NewebPayPeriodAlterStatus
+     */
+    public function periodSuspend($no, $periodNo)
+    {
+        $newebPay = new NewebPayPeriodAlterStatus($this->config);
+        $newebPay->setPeriodAlterStatus($no, $periodNo);
+        $newebPay->setAlterType('suspend');
+
+        return $newebPay;
+    }
+
+    /**
+     * 定期定額-終止委託
+     *
+     * @param  string  $no 商店訂單編號
+     * @param  string  $periodNo 委託單號
+     * @return \Ycs77\NewebPay\NewebPayPeriodAlterStatus
+     */
+    public function periodTerminate($no, $periodNo)
+    {
+        $newebPay = new NewebPayPeriodAlterStatus($this->config);
+        $newebPay->setPeriodAlterStatus($no, $periodNo);
+        $newebPay->setAlterType('terminate');
+
+        return $newebPay;
+    }
+
+    /**
+     * 定期定額-重新啟用暫停委託
+     *
+     * @param  string  $no 商店訂單編號
+     * @param  string  $periodNo 委託單號
+     * @return \Ycs77\NewebPay\NewebPayPeriodAlterStatus
+     */
+    public function periodRestart($no, $periodNo)
+    {
+        $newebPay = new NewebPayPeriodAlterStatus($this->config);
+        $newebPay->setPeriodAlterStatus($no, $periodNo);
+        $newebPay->setAlterType('restart');
+
+        return $newebPay;
+    }
+
+    /**
+     * 定期定額-修改內容參數
+     *
+     * @param  string  $no 商店訂單編號
+     * @param  string  $periodNo 委託單號
+     * @param  int  $amt  訂單金額
+     * @param  string  $desc  商品描述
+     * @param  string  $email  連絡信箱
+     * @param  string  $type  週期類別
+     *                        D = 固定天期制
+     *                        W = 每週
+     *                        M = 每月
+     *                        Y = 每年
+     * @param  int  $point  交易週期授權時間
+     *                        D = 2~999
+     *                        W = 1~7
+     *                        M = 01~31
+     *                        Y = 0315(MMDD)
+     * @return \Ycs77\NewebPay\NewebPayPeriodAlterAmt
+     */
+    public function periodAlterAmt($no, $periodNo, $amt, $desc, $email, $type, $point)
+    {
+        $newebPay = new NewebPayPeriodAlterAmt($this->config);
+        $newebPay->setPeriodAlterAmt($no, $periodNo, $amt, $desc, $email, $type, $point);
+
+        return $newebPay;
+    }
+
+    /**
      * 解碼加密字串
      *
      * @param  string  $encryptString

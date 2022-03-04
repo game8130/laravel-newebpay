@@ -31,7 +31,7 @@ class NewebPayCreditCardTest extends TestCase
         $requestData = $newebpay->getRequestData();
 
         $this->assertEquals('TestMerchantID1234', $requestData['MerchantID_']);
-        $this->assertEquals('e88e33cc07d106bcba1c1bd02d5d421fa9f86ef5a1469c0e801b3813b360f8333fd9fef8bf7312a3e5e66e1f6b5601b6b4bc2294c8153642aa02cc63afaa4b16', $requestData['PostData_']);
+        $this->assertEquals('0648e6bb8bcda9be87c79c6d1460915ef83e2401fd26af418303a3d9d932f4a55b44d0a1ae9c5d487b0b9398bb262ffc2b85a6788e5d08050306354a57344194', $requestData['PostData_']);
         $this->assertEquals('JSON', $requestData['Pos_']);
     }
 
