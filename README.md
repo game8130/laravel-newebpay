@@ -15,6 +15,7 @@ Laravel NewebPay 為針對 Laravel 所寫的金流套件，主要實作藍新金
 * NewebPay MPG - 多功能收款
 * NewebPay Cancel - 信用卡取消授權
 * NewebPay Close - 信用卡請退款
+* NewebPay Period - 信用卡定期定額
 
 ## 安裝
 
@@ -216,7 +217,7 @@ return NewebPay::payment(
     ->submit();
 ```
 
-*此版本1.5由籃新金流回傳後為加密訊息，所以回傳後需要進行解碼！*
+*此版本2.0由籃新金流回傳後為加密訊息，所以回傳後需要進行解碼！*
 
 ```php
 use Illuminate\Http\Request;
@@ -272,6 +273,116 @@ function requestRefund()
         amt,  // 該筆交易的金額
         'order' // 可選擇是由 `order`->訂單編號，或是 `trade`->藍新交易編號來做申請
     )->submit();
+}
+```
+
+### NewebPay close - 信用卡定期定額委託建立
+
+```php
+use Ycs77\NewebPay\Facades\NewebPay;
+
+function period()
+{
+    return NewebPay::period(
+        no, // 訂單編號
+        amt, // 交易金額
+        desc, // 商品名稱
+        email, // 付款人信箱
+        type, // 週期類別
+        point // 交易週期授權時間
+    )->submit();
+}
+```
+
+基本上一般交易可直接在 `config/newebpay.php` 做設定，裡面有詳細的解說，但若遇到特殊情況，可依據個別交易做個別 function 設定。
+
+```php
+use Ycs77\NewebPay\Facades\NewebPay;
+
+return NewebPay::period(
+    no, // 訂單編號
+    amt, // 交易金額
+    desc, // 商品名稱
+    email, // 付款人信箱
+    type, // 週期類別
+    point // 交易週期授權時間
+)
+    ->setLangType(); // 語言設定
+    ->setPeriodStartType(); // 檢查卡號模式
+    ->setPeriodTimes(); // 授權期數
+    ->setPeriodFirstdate(); // 第一期發動日
+    ->setReturnURL(); // 返回商店網址
+    ->setPeriodMemo(); // 備註說明
+    ->setEmailModify(); // 付款人電子信箱是否開放修改
+    ->setPaymentInfo(); // 是否開啟付款人資訊
+    ->setOrderInfo(); // 是否開啟收件人資訊
+    ->setNotifyURL(); // 每期授權結果通知
+    ->setBackURL(); // 取消交易返回商店網址
+    ->setUNIONPAY(); // 信用卡銀聯卡啟用
+    ->submit();
+```
+
+### NewebPay Suspend - 定期定額暫停委託
+
+```php
+use Ycs77\NewebPay\Facades\NewebPay;
+
+function periodSuspend()
+{
+    return NewebPay::periodSuspend(
+        no, // 訂單編號
+        periodNo, // 委託單號
+    )->submit();
+}
+```
+
+### NewebPay Terminate - 定期定額終止委託
+
+```php
+use Ycs77\NewebPay\Facades\NewebPay;
+
+function periodTerminate()
+{
+    return NewebPay::periodTerminate(
+        no, // 訂單編號
+        periodNo, // 委託單號
+    )->submit();
+}
+```
+
+### NewebPay Restart - 定期定額重新啟用暫停委託
+
+```php
+use Ycs77\NewebPay\Facades\NewebPay;
+
+function periodRestart()
+{
+    return NewebPay::periodRestart(
+        no, // 訂單編號
+        periodNo, // 委託單號
+    )->submit();
+}
+```
+
+### NewebPay Period Alter Amt - 修改已建立定期定額委託單內容參數
+
+```php
+use Ycs77\NewebPay\Facades\NewebPay;
+
+function periodAlterAmt()
+{
+    return NewebPay::periodAlterAmt(
+        no, // 訂單編號
+        periodNo, // 委託單號
+        amt, // 交易金額
+        desc, // 商品名稱
+        email, // 付款人信箱
+        type, // 週期類別
+        point // 交易週期授權時間
+    )
+    ->setExtday() // 信用卡到期日
+    ->submit();
+
 }
 ```
 

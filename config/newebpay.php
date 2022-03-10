@@ -26,7 +26,7 @@ return [
      * 串接版本
      */
 
-    'Version' => '1.5',
+    'Version' => '2.0',
 
     /*
      * 語系 zh-tw/en
@@ -208,5 +208,66 @@ return [
      *   c.若商店設定中，［B2C 大宗寄倉］與［C2C 店到店］皆未啟用，則支付頁面中將不會出現物流選項。
      */
     'LgsType' => null,
+
+    /*
+     * 定期定額-檢查卡號模式
+     *
+     * 1 = 立即執行十元授權 (因部分發卡銀行會阻擋一元交 易，因此調整為十元)
+     * 2 = 立即執行委託金額授權
+     * 3 = 不檢查信用卡資訊，不授權
+     */
+    'PeriodStartType' => 2,
+
+    /*
+     * 定期定額-授權期數
+     *
+     * max:99
+     */
+    'PeriodTimes' => 99,
+
+    /*
+     * 定期定額-第1期發動日
+     *
+     * default: 0
+     */
+
+    'PeriodFirstdate' => 0,
+
+    /*
+     * 定期定額-備註說明
+     *
+     * 1.限制長度為 255 字。
+     * 2.此委託單的備註說明。
+     * default: null
+     */
+    'PeriodMemo' => null,
+
+    /*
+     * 定期定額-是否開啟付款人資訊
+     *
+     * 於付款人填寫此委託單時，是否需顯示付款人資訊填寫欄位。
+     * Y = 是
+     * N = 否
+     * default: Y
+     */
+    'PaymentInfo' => 'Y',
+
+    /*
+     * 定期定額-是否開啟收件人資訊
+     *
+     * 於付款人填寫此委託單時，是否需顯示收件人資訊填寫欄位。
+     * Y = 是
+     * N = 否
+     * default: Y
+     */
+    'OrderInfo' => 'Y',
+
+    /*
+     * 定期定額-返回商店網址
+     *
+     * 取消交易時返回商店的網址
+     * default: null
+     */
+    'BackURL' => env('CASH_CLIENT_BACK_URL') != null ? env('APP_URL').env('CASH_CLIENT_BACK_URL') : null,
 
 ];

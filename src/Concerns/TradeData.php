@@ -315,4 +315,154 @@ trait TradeData
 
         return $this;
     }
+
+    /**
+     * set Period
+     *
+     * @param  string  $no
+     * @param  int  $amt
+     * @param  string  $desc
+     * @param  string  $email
+     * @param  string  $type
+     * @param  string  $point
+     * @return $this
+     */
+    public function setPeriod($no, $amt, $desc, $email, $type, $point)
+    {
+        $this->TradeData['MerOrderNo'] = $no;
+        $this->TradeData['PeriodAmt'] = $amt;
+        $this->TradeData['ProdDesc'] = $desc;
+        $this->TradeData['PayerEmail'] = $email;
+        $this->TradeData['PeriodType'] = $type;
+        $this->TradeData['PeriodPoint'] = $point;
+
+        return $this;
+    }
+
+    /**
+     * 定期定額-檢查卡號模式
+     *
+     * @param  int|null  $type
+     * @return $this
+     */
+    public function setPeriodStartType($type = null)
+    {
+        $this->TradeData['PeriodStartType'] = $type !== null ? $type : $this->config->get('newebpay.PeriodStartType');
+
+        return $this;
+    }
+
+    /**
+     * 定期定額-授權期數
+     *
+     * @param  int|null  $times
+     * @return $this
+     */
+    public function setPeriodTimes($times = null)
+    {
+        $this->TradeData['PeriodTimes'] = $times !== null ? $times : $this->config->get('newebpay.PeriodTimes');
+
+        return $this;
+    }
+
+    /**
+     * 定期定額-第1期發動日
+     *
+     * @param  string|null  $day [YYYY/mm/dd]
+     * @return $this
+     */
+    public function setPeriodFirstdate($day = null)
+    {
+        $day = $day !== null ? $day : $this->config->get('newebpay.PeriodFirstdate');
+
+        $this->TradeData['PeriodFirstdate'] = Carbon::now()->addDays($day)->format('Y/m/d');
+
+        return $this;
+    }
+
+    /**
+     * 定期定額-備註說明
+     *
+     * 1.限制長度為 255 字。
+     * 2.此委託單的備註說明。
+     *
+     * @param  string|null  $memo
+     * @return $this
+     */
+    public function setPeriodMemo($memo = null)
+    {
+        $this->TradeData['PeriodMemo'] = $memo !== null ? $memo : $this->config->get('newebpay.PeriodMemo');
+
+        return $this;
+    }
+
+
+    /*＊
+     * 定期定額-是否開啟付款人資訊
+     *
+     * 於付款人填寫此委託單時，是否需顯示付款人資訊填寫欄位。
+     * Y = 是
+     * N = 否
+     *
+     * @param  string|null  $isInfo
+     * @return $this
+     */
+    public function setPaymentInfo($isInfo = null)
+    {
+        $this->TradeData['PaymentInfo'] = $isInfo !== null ? $isInfo : $this->config->get('newebpay.PaymentInfo');
+
+        return $this;
+    }
+
+    /*＊
+     * 定期定額-是否開啟收件人資訊
+     *
+     * 於付款人填寫此委託單時，是否需顯示收件人資訊填寫欄位。
+     * Y = 是
+     * N = 否
+     *
+     * @param  string|null  $isInfo
+     * @return $this
+     */
+    public function setOrderInfo($isInfo = null)
+    {
+        $this->TradeData['OrderInfo'] = $isInfo !== null ? $isInfo : $this->config->get('newebpay.OrderInfo');
+
+        return $this;
+    }
+
+    /**
+     * 定期定額-返回商店網址
+     *
+     * 取消交易時返回商店的網址
+     *
+     * @param  string|null  $url
+     * @return $this
+     */
+    public function setBackURL($url = null)
+    {
+        $this->TradeData['BackURL'] = $url ?? $this->config->get('newebpay.BackURL');
+
+        return $this;
+    }
+
+    /**
+     * 定期定額-信用卡銀聯卡啟用
+     *
+     * true = 啟用
+     * false = 不啟用
+     * default : false
+     *
+     * @param  bool|null  $type
+     *
+     * @return $this
+     */
+    public function setUNIONPAY($type = null)
+    {
+        $paymentMethod = $this->config->get('newebpay.PaymentMethod');
+
+        $this->TradeData['UNIONPAY'] = $type !== null ? $type : ($paymentMethod['UNIONPAY'] ? 1 : 0);
+
+        return $this;
+    }
 }
